@@ -10,8 +10,9 @@ import UIKit
 import FlagPhoneNumber
 
 class ViewController: UIViewController {
+  private lazy var countryPicker: FPNCountryPicker = FPNCountryPicker()
 
-	var phoneNumberTextField: FPNTextField!
+	var phoneNumberTextField: UITextField!
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -21,16 +22,10 @@ class ViewController: UIViewController {
 		// To use your own flag icons, uncommment the line :
 		//		Bundle.FlagIcons = Bundle(for: ViewController.self)
 
-		phoneNumberTextField = FPNTextField(frame: CGRect(x: 0, y: 0, width: view.bounds.width - 16, height: 50))
+		phoneNumberTextField = UITextField(frame: CGRect(x: 0, y: 0, width: view.bounds.width - 16, height: 50))
 		phoneNumberTextField.borderStyle = .roundedRect
 
-		// Comment this line to not have access to the country list
-		phoneNumberTextField.parentViewController = self
-		phoneNumberTextField.delegate = self
-
-		// Custom the size/edgeInsets of the flag button
-		phoneNumberTextField.flagSize = CGSize(width: 35, height: 35)
-		phoneNumberTextField.flagButtonEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    phoneNumberTextField.inputView = countryPicker
 
 		// Example of customizing the textField input accessory view
 		//		let items = [
@@ -40,8 +35,6 @@ class ViewController: UIViewController {
 		//		]
 		//		phoneNumberTextField.textFieldInputAccessoryView = getCustomTextFieldInputAccessoryView(with: items)
 
-		// The placeholder is an example phone number of the selected country by default. You can add your own placeholder :
-		phoneNumberTextField.hasPhoneNumberExample = true
 		//		phoneNumberTextField.placeholder = "Phone Number"
 
 		// Set the country list
@@ -69,26 +62,5 @@ class ViewController: UIViewController {
 		toolbar.sizeToFit()
 
 		return toolbar
-	}
-}
-
-extension ViewController: FPNTextFieldDelegate {
-
-	func fpnDidValidatePhoneNumber(textField: FPNTextField, isValid: Bool) {
-		textField.rightViewMode = .always
-		textField.rightView = UIImageView(image: isValid ? #imageLiteral(resourceName: "success") : #imageLiteral(resourceName: "error"))
-
-		print(
-			isValid,
-			textField.getFormattedPhoneNumber(format: .E164),
-			textField.getFormattedPhoneNumber(format: .International),
-			textField.getFormattedPhoneNumber(format: .National),
-			textField.getFormattedPhoneNumber(format: .RFC3966),
-			textField.getRawPhoneNumber()
-		)
-	}
-
-	func fpnDidSelectCountry(name: String, dialCode: String, code: String) {
-		print(name, dialCode, code)
 	}
 }

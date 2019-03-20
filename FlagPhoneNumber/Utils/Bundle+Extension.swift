@@ -11,7 +11,7 @@ extension Bundle {
 	static public var FlagIcons = FlagPhoneNumber()
 
 	static public func FlagPhoneNumber() -> Bundle {
-		let bundle = Bundle(for: FPNTextField.self)
+		let bundle = Bundle(for: FPNSearchCountryViewController.self)
 
 		if let path = bundle.path(forResource: "FlagPhoneNumber", ofType: "bundle") {
 			return Bundle(path: path)!
