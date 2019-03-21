@@ -1,6 +1,6 @@
 import Foundation
 
-struct FPNCountry {
+public struct FPNCountry {
 	var code: FPNCountryCode
 	var name: String
 	var phoneCode: String

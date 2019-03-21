@@ -9,7 +9,7 @@ open class FPNCountryPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDat
 	}
 
 	open var selectedLocale: Locale?
-	weak var countryPickerDelegate: FPNCountryPickerDelegate?
+	open weak var countryPickerDelegate: FPNCountryPickerDelegate?
 	open var showPhoneNumbers: Bool = true
 
 	override init(frame: CGRect) {
